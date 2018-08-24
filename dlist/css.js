@@ -1,3 +1,9 @@
+/**
+ * @function css 设置css行内样式
+ * @param {string,object} selector css表达式或元素节点
+ * @param {string,object} csspro  css样式属性名或css属性的键值对象
+ * @param {string} [cssvalue] css样式属性值
+ */
 function css(selector,csspro,cssvalue){
     const ele = query(selector); //获取元素节点对象
     //判断参数是否是字符串。如果是字符串则表示修改单个样式，是对象则表示修改多个样式
