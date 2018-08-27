@@ -5,7 +5,7 @@
  * @param {string} [provalue] 自定义属性值 可选
  */
 function attr(selector,proname,provalue){
-    const ele = query(selector);
+    var ele = query(selector);
 
     if(typeof proname == "string")
     {
@@ -20,16 +20,19 @@ function attr(selector,proname,provalue){
     }
     else if(Array.isArray(proname))
     {
-        let attrList = {};
-        
-        proname.forEach(e=>{const value = ele.getAttribute(e); if(value){ attrList[e] = value; } })
+        proname = proname.join("|");
+
+        var html = ele.outerHTML,reg = new RegExp(`(${proname})="([\\w]*)`,"g");
+       
+        html = html.substring(0,html.indexOf(">"));
+
+        var list = html.match(reg),attrList = {};
+
+        if(list && list.length){list.forEach(e=>{var val = e.split("=\"");attrList[val[0]] = val[1];});}
 
         return attrList;
     }
-    else
-    {
-        Object.keys(proname).forEach(e=>{ ele.setAttribute(e,proname[e]); })
-    }
+    else{ Object.keys(proname).forEach(e=>{ ele.setAttribute(e,proname[e]); }) }
 }
 
 function query(selector){
