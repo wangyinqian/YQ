@@ -19,6 +19,8 @@ function fomatDate(pattern,time,lang,opts = {}){
         let _format = {};
         //设置年月日等显示方式设置
         pattern.split(" ").forEach(e=>{_format[_dateHash[e]] = _dateHash[opts[e]] || "numeric";})
+        
+        if(typeof opts.param == "object"){ Object.assign(_format,opts.param);  }
         //返回生成后的日期
         return _date.toLocaleString(lang,_format);
     }
